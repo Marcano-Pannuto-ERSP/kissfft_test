@@ -4,29 +4,33 @@
 #include "kiss_fftr.h"
 #include <stdint.h>
 
-/** Structure representing the FFT calcuations????????????*/
+// Structure representing the information of the samples
 struct fft
 {
 	uint32_t N; // total number of samples (size of file in bytes / 2)
     uint32_t S; // sampling frequency
 };
 
+// Initialize FFT structure
 void fft_init(struct fft *fft)
 {
     fft->N = (40960/2);
     fft->S = 7813;
 }
 
+// Change N
 void fft_N(struct fft *fft, uint32_t number)
 {
     fft->N = number;
 }
 
+// Change S
 void fft_S(struct fft *fft, uint32_t sampling)
 {
     fft->S = sampling;
 }
 
+// helper function for getting the highest frequency
 void TestFftReal(struct fft *fft, const kiss_fft_scalar in[], kiss_fft_cpx out[])
 {
   kiss_fftr_cfg cfg;
@@ -62,6 +66,7 @@ void TestFftReal(struct fft *fft, const kiss_fft_scalar in[], kiss_fft_cpx out[]
   }
 }
 
+// read the audio file and get the highest frequency
 void fft_read(struct fft *fft, FILE * fp, uint16_t buffer[])
 {
   // save contents of out.raw to a buffer
