@@ -12,7 +12,7 @@
 #define S 7813    // sampling frequency
 #define f 440     // Hz of sine wave
 
-void TestFftReal(const char* title, const kiss_fft_scalar in[N], kiss_fft_cpx out[N / 2 + 1], FILE * fp)
+void TestFftReal(const kiss_fft_scalar in[N], kiss_fft_cpx out[N / 2 + 1], FILE * fp)
 {
   kiss_fftr_cfg cfg;
 
@@ -60,7 +60,6 @@ int main(void)
     // save contents of out.raw to a buffer
     uint16_t buffer[N];
     fread(buffer, 2, N, fp);
-    // printf("%s\n", buffer);
     
     // FFT transform
     kiss_fft_scalar in[N];
@@ -69,7 +68,7 @@ int main(void)
 
     for (i = 0; i < N; i++)
         in[i] = buffer[i];
-    TestFftReal("SineWave (real)", in, out, fp2);
+    TestFftReal(in, out, fp2);
 
     return 0;
     
