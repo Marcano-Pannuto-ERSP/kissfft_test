@@ -28,7 +28,6 @@ void TestFftReal(const kiss_fft_scalar in[N], kiss_fft_cpx out[N / 2 + 1], FILE 
     {
         double num = sqrt(out[i].r * out[i].r + out[i].i * out[i].i);
         data[i] = num;
-        int retVal = fwrite(&num, sizeof(num), 1, fp);
     }
     int max = 0;
     int bucket = 0;
@@ -53,9 +52,6 @@ int main(void)
     // open audio file
     FILE * fp;
     fp = fopen("out.raw", "r");
-
-    FILE * fp2;
-    fp2 = fopen("amplitudes", "w");
 
     // save contents of out.raw to a buffer
     uint16_t buffer[N];
